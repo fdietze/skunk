@@ -16,7 +16,7 @@ import skunk.util.Origin
  * @group Statements
  */
 final case class Fragment[A](
-  parts:   List[Either[String, State[Int, String]]],
+  parts:   Vector[Either[String, State[Int, String]]],
   encoder: Encoder[A],
   origin:  Origin
 ) extends (A => AppliedFragment) {
@@ -66,7 +66,7 @@ object Fragment {
     }
 
   private[skunk] def apply(sql: String): Fragment[Void] =
-    Fragment(List(Left(sql)), Void.codec, Origin.unknown)
+    Fragment(Vector(Left(sql)), Void.codec, Origin.unknown)
 
 
   val empty: Fragment[Void] =
